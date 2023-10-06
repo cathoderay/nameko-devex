@@ -7,3 +7,4 @@ class Product(Schema):
     passenger_capacity = fields.Int(required=True)
     maximum_speed = fields.Int(required=True)
     in_stock = fields.Int(required=True)
+    deleted = fields.Int(required=True, default=False)
