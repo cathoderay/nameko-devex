@@ -32,8 +32,7 @@ class ProductsService:
 
     @rpc
     def delete(self, product_id):
-        product = self.storage.get(product_id)
-        self.storage.delete(product)
+        product = self.storage.delete(product_id)
         return schemas.Product().dump(product).data
 
     @event_handler('orders', 'order_created')

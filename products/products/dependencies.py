@@ -33,7 +33,8 @@ class StorageWrapper:
             'title': document[b'title'].decode('utf-8'),
             'passenger_capacity': int(document[b'passenger_capacity']),
             'maximum_speed': int(document[b'maximum_speed']),
-            'in_stock': int(document[b'in_stock'])
+            'in_stock': int(document[b'in_stock']),
+            'deleted': int(document[b'deleted'])
         }
 
     def get(self, product_id):
@@ -53,11 +54,13 @@ class StorageWrapper:
             self._format_key(product['id']),
             product)
 
-    def delete(self, product):
-        product['deleted'] = 1
+    def delete(self, product_id):
+        product = self.client.hgetall(self._format_key(product_id))
+        product[b'deleted'] = 1
         self.client.hmset(
-            self._format_key(product['id']),
+            self._format_key(product_id),
             product)
+        return self._from_hash(product)
 
     def decrement_stock(self, product_id, amount):
         return self.client.hincrby(
