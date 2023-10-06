@@ -28,6 +28,7 @@ def product():
         'passenger_capacity': 72,
         'maximum_speed': 130,
         'in_stock': 11,
+        'deleted': 0,
     }
 
 
