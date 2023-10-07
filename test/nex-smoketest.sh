@@ -59,3 +59,8 @@ echo "=== Deleting product: the_odyssey ==="
 curl -s -XDELETE "${STD_APP_URL}/products/the_odyssey" \
     -H 'accept: application/json' \
     -H 'Content-Type: application/json' | jq .
+
+# Test: list orders
+echo "=== List orders ==="
+curl -s "${STD_APP_URL}/orders" \
+    -H 'accept: application/json' | jq .
