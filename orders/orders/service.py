@@ -23,6 +23,11 @@ class OrdersService:
         return OrderSchema().dump(order).data
 
     @rpc
+    def list_orders(self):
+        orders = self.db.query(Order).all()
+        return list(map(lambda order: OrderSchema().dump(order).data, orders))
+
+    @rpc
     def create_order(self, order_details):
         order = Order(
             order_details=[

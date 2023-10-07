@@ -34,10 +34,24 @@ def test_get_order(orders_rpc, order):
     assert response['id'] == order.id
 
 
-def test_can_list_orders(orders_rpc, order):
+def test_list_orders(orders_rpc, order, order_details):
     response = orders_rpc.list_orders()
     assert isinstance(response, list)
     assert response[0]['id'] == order.id
+    assert response[0]['order_details'] == [
+        {
+            'price': '99.51',
+            'quantity': 1,
+            'product_id': 'the_odyssey',
+            'id': 1
+        },
+        {
+            'price': '30.99',
+            'quantity': 8,
+            'product_id': 'the_enigma',
+            'id': 2
+        }
+    ]
 
 
 @pytest.mark.usefixtures('db_session')
