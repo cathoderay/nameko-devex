@@ -25,7 +25,7 @@ class OrdersService:
     @rpc
     def list_orders(self):
         orders = self.db.query(Order).all()
-        return list(map(lambda order: OrderSchema().dump(order).data, orders))
+        return OrderSchema(many=True).dump(orders).data
 
     @rpc
     def create_order(self, order_details):
