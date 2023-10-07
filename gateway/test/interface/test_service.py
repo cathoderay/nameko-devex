@@ -12,7 +12,8 @@ class TestGetProduct(object):
             "maximum_speed": 5,
             "id": "the_odyssey",
             "passenger_capacity": 101,
-            "title": "The Odyssey"
+            "title": "The Odyssey",
+            "deleted": 0,
         }
         response = web_session.get('/products/the_odyssey')
         assert response.status_code == 200
@@ -24,7 +25,8 @@ class TestGetProduct(object):
             "maximum_speed": 5,
             "id": "the_odyssey",
             "passenger_capacity": 101,
-            "title": "The Odyssey"
+            "title": "The Odyssey",
+            "deleted": 0,
         }
 
     def test_product_not_found(self, gateway_service, web_session):
@@ -39,6 +41,28 @@ class TestGetProduct(object):
         assert payload['message'] == 'missing'
 
 
+class TestDeleteProduct(object):
+    def test_can_delete_product(self, gateway_service, web_session):
+        gateway_service.products_rpc.delete.return_value = {
+            "in_stock": 10,
+            "maximum_speed": 5,
+            "id": "the_odyssey",
+            "passenger_capacity": 101,
+            "title": "The Odyssey",
+            "deleted": 1,
+        }
+        response = web_session.delete('/products/the_odyssey')
+        assert response.status_code == 200
+        assert response.json() == {
+            "in_stock": 10,
+            "maximum_speed": 5,
+            "id": "the_odyssey",
+            "passenger_capacity": 101,
+            "title": "The Odyssey",
+            "deleted": 1,
+        }
+
+
 class TestCreateProduct(object):
     def test_can_create_product(self, gateway_service, web_session):
         response = web_session.post(
@@ -48,7 +72,7 @@ class TestCreateProduct(object):
                 "maximum_speed": 5,
                 "id": "the_odyssey",
                 "passenger_capacity": 101,
-                "title": "The Odyssey"
+                "title": "The Odyssey",
             })
         )
         assert response.status_code == 200
@@ -58,7 +82,8 @@ class TestCreateProduct(object):
                 "maximum_speed": 5,
                 "id": "the_odyssey",
                 "passenger_capacity": 101,
-                "title": "The Odyssey"
+                "title": "The Odyssey",
+                "deleted": 0,
             })]
 
     def test_create_product_fails_with_invalid_json(
@@ -110,14 +135,16 @@ class TestGetOrder(object):
                 'title': 'The Odyssey',
                 'maximum_speed': 3,
                 'in_stock': 899,
-                'passenger_capacity': 100
+                'passenger_capacity': 100,
+                'deleted': 0,
             },
             {
                 'id': 'the_enigma',
                 'title': 'The Enigma',
                 'maximum_speed': 200,
                 'in_stock': 1,
-                'passenger_capacity': 4
+                'passenger_capacity': 4,
+                'deleted': 0,
             },
         ]
 
@@ -139,7 +166,8 @@ class TestGetOrder(object):
                         'title': 'The Odyssey',
                         'maximum_speed': 3,
                         'in_stock': 899,
-                        'passenger_capacity': 100
+                        'passenger_capacity': 100,
+                        'deleted': 0,
                     },
                     'price': '200.00'
                 },
@@ -154,7 +182,8 @@ class TestGetOrder(object):
                         'title': 'The Enigma',
                         'maximum_speed': 200,
                         'in_stock': 1,
-                        'passenger_capacity': 4
+                        'passenger_capacity': 4,
+                        'deleted': 0,
                     },
                     'price': '400.00'
                 }

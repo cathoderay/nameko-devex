@@ -19,6 +19,7 @@ class ProductSchema(Schema):
     maximum_speed = fields.Int(required=True)
     in_stock = fields.Int(required=True)
     passenger_capacity = fields.Int(required=True)
+    deleted = fields.Int(required=True, default=0, missing=0)
 
 
 class GetOrderSchema(Schema):
