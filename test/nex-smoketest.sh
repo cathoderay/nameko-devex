@@ -54,13 +54,13 @@ ID=$(echo ${ORDER_ID} | jq '.id')
 echo "=== Getting Order ==="
 curl -s "${STD_APP_URL}/orders/${ID}" | jq .
 
-# Test: Delete product
-echo "=== Deleting product: the_odyssey ==="
+# Test: Delete Product
+echo "=== Deleting Product: the_odyssey ==="
 curl -s -XDELETE "${STD_APP_URL}/products/the_odyssey" \
     -H 'accept: application/json' \
     -H 'Content-Type: application/json' | jq .
 
-# Test: list orders
-echo "=== List orders ==="
+# Test: List Orders
+echo "=== Listing Orders ==="
 curl -s "${STD_APP_URL}/orders?page=0&page_size=10" \
     -H 'accept: application/json' | jq .

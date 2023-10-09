@@ -88,7 +88,7 @@ STD_APP_URL=http://localhost:8000
   ],
   "id": 3
 }
-=== Deleting product: the_odyssey ===
+=== Deleting Product: the_odyssey ===
 {
   "in_stock": 9,
   "passenger_capacity": 101,
@@ -97,7 +97,7 @@ STD_APP_URL=http://localhost:8000
   "title": "The Odyssey",
   "id": "the_odyssey"
 }
-=== List orders ===
+=== Listing Orders ===
 [
   {
     "order_details": [
