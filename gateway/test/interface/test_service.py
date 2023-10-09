@@ -389,7 +389,7 @@ class TestCreateOrder(object):
     ):
         # setup mock products-service response:
         gateway_service.products_rpc.get.side_effect = (
-            Exception())
+            Exception("Not found"))
 
         # call the gateway service to create the order
         response = web_session.post(

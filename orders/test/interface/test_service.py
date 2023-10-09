@@ -16,6 +16,15 @@ def order(db_session):
 
 
 @pytest.fixture
+def orders_pagination(db_session):
+    n = 5
+    for _ in range(n):
+        order = Order()
+        db_session.add(order)
+        db_session.commit()
+
+
+@pytest.fixture
 def order_details(db_session, order):
     db_session.add_all([
         OrderDetail(
@@ -52,6 +61,18 @@ def test_list_orders(orders_rpc, order, order_details):
             'id': 2
         }
     ]
+
+
+def test_list_orders_paginated(orders_rpc, orders_pagination):
+    response = orders_rpc.list_orders(page_size=3, page=0)
+    assert isinstance(response, list)
+    assert len(response) == 3
+    sorted([item['id'] for item in response]) == range(1, 4)
+
+    response = orders_rpc.list_orders(page_size=3, page=1)
+    assert isinstance(response, list)
+    assert len(response) == 2
+    sorted([item['id'] for item in response]) == range(4, 6)
 
 
 @pytest.mark.usefixtures('db_session')

@@ -122,15 +122,29 @@ class GatewayService(object):
 
         return order
 
-    def _get_orders(self):
+    def _get_orders(self, **kwargs):
         return [
             self._get_order(order['id'])
-            for order in self.orders_rpc.list_orders()
+            for order in self.orders_rpc.list_orders(**kwargs)
         ]
+
+    def _parse_query_string(self, query_string):
+        query_params = [
+            item.split('=')
+            for item in query_string.decode('utf-8').split('&')
+        ]
+        return {
+            key : int(value)
+            for key, value in query_params
+        }
 
     @http("GET", "/orders", expected_exceptions=(BadRequest))
     def get_orders(self, request):
-        orders = self._get_orders()
+        query_params = {}
+        if request.query_string:
+            query_params = self._parse_query_string(request.query_string)
+
+        orders = self._get_orders(**query_params)
         return Response(
             GetOrderSchema(many=True).dumps(orders).data,
             mimetype='application/json'
