@@ -312,7 +312,6 @@ class TestGetOrders(object):
 
 
 class TestCreateOrder(object):
-
     def test_can_create_order(self, gateway_service, web_session):
         # setup mock products-service response:
         gateway_service.products_rpc.get.side_effect = [
