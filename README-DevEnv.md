@@ -88,6 +88,56 @@ STD_APP_URL=http://localhost:8000
   ],
   "id": 3
 }
+=== Deleting product: the_odyssey ===
+{
+  "in_stock": 9,
+  "passenger_capacity": 101,
+  "maximum_speed": 5,
+  "deleted": 1,
+  "title": "The Odyssey",
+  "id": "the_odyssey"
+}
+=== List orders ===
+[
+  {
+    "order_details": [
+      {
+        "price": "100000.99",
+        "image": "http://www.example.com/airship/images/the_odyssey-0.591094977943197.jpg",
+        "quantity": 1,
+        "product_id": "the_odyssey-0.591094977943197",
+        "id": 1,
+        "product": {
+          "in_stock": 9,
+          "passenger_capacity": 101,
+          "maximum_speed": 5,
+          "deleted": 1,
+          "title": "The Odyssey",
+          "id": "the_odyssey-0.591094977943197"
+        }
+      }
+    ],
+    "id": 1
+  },
+  {
+    "order_details": [
+      {
+        "price": "100000.99",
+        "image": "http://www.example.com/airship/images/the_honda-0.7128324543798259.jpg",
+        "quantity": 1,
+        "product_id": "the_honda-0.7128324543798259",
+        "id": 2,
+        "product": {
+          "in_stock": 99,
+          "passenger_capacity": 201,
+          "maximum_speed": 10,
+          "deleted": 1,
+          "title": "The Honda",
+          "id": "the_honda-0.7128324543798259"
+        }
+      }
+    ],
+  ...
 ```
 
 * Unit Test
