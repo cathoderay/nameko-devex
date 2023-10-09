@@ -107,7 +107,6 @@ class TestCreateProduct(object):
 
 
 class TestGetOrder(object):
-
     def test_can_get_order(self, gateway_service, web_session):
         # setup mock orders-service response:
         gateway_service.orders_rpc.get_order.return_value = {
@@ -307,8 +306,6 @@ class TestGetOrders(object):
         }]
 
         assert expected_response == response.json()
-
-
         assert [call(1)] == gateway_service.orders_rpc.get_order.call_args_list
         calls_to_get_product = [call("the_odyssey"), call("the_enigma")]
         assert calls_to_get_product == gateway_service.products_rpc.get.call_args_list
