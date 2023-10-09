@@ -67,12 +67,12 @@ def test_list_orders_paginated(orders_rpc, orders_pagination):
     response = orders_rpc.list_orders(page_size=3, page=0)
     assert isinstance(response, list)
     assert len(response) == 3
-    sorted([item['id'] for item in response]) == range(1, 4)
+    assert sorted([item['id'] for item in response]) == [1, 2, 3]
 
     response = orders_rpc.list_orders(page_size=3, page=1)
     assert isinstance(response, list)
     assert len(response) == 2
-    sorted([item['id'] for item in response]) == range(4, 6)
+    assert sorted([item['id'] for item in response]) == [4, 5]
 
 
 @pytest.mark.usefixtures('db_session')
