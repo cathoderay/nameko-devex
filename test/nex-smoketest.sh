@@ -62,5 +62,5 @@ curl -s -XDELETE "${STD_APP_URL}/products/the_odyssey" \
 
 # Test: list orders
 echo "=== List orders ==="
-curl -s "${STD_APP_URL}/orders" \
+curl -s "${STD_APP_URL}/orders?page=0&page_size=10" \
     -H 'accept: application/json' | jq .
