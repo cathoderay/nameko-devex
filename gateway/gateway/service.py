@@ -109,22 +109,21 @@ class GatewayService(object):
         # Note - this may raise a remote exception that has been mapped to
         # raise``OrderNotFound``
         order = self.orders_rpc.get_order(order_id)
+        return self.add_order_details(order)
 
-        # get the configured image root
+    def add_order_details(self, order):
         image_root = config['PRODUCT_IMAGE_ROOT']
 
         # Enhance order details with product and image details.
         for item in order['order_details']:
             product_id = item['product_id']
-
             item['product'] = self.products_rpc.get(product_id)
             item['image'] = '{}/{}.jpg'.format(image_root, product_id)
-
         return order
 
     def _get_orders(self, **kwargs):
         return [
-            self._get_order(order['id'])
+            self.add_order_details(order)
             for order in self.orders_rpc.list_orders(**kwargs)
         ]
 
